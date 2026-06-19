@@ -53,6 +53,10 @@ class SymfonyMailCollector extends DataCollector implements Renderable, AssetPro
                 'headers' => $message->getHeaders()->toString(),
                 'body' => null,
                 'html' => null,
+                'attachments' => array_filter(array_map(
+                    fn($att) => $att->getFilename(),
+                    $message->getAttachments()
+                )),
             ];
 
             if ($this->showBody) {
